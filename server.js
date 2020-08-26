@@ -54,4 +54,5 @@ server.on("listening",onListening);
 server.listen(port); // Port for handling the development
 
 
-//npm install --save-dev nodemon //Automate the restart of node server once changes occur
+//npm install --save-dev nodemon - Automate the restart of node server once changes occur
+//npm run start:server - Custom command for running nodemon, registered under scripts of package.json
