@@ -3,7 +3,8 @@
 import {PostModel} from './post.model';
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
-import {Subject} from "rxjs"; // Event Emitter "Observer Pattern"
+import {Subject} from "rxjs";
+import {response} from "express"; // Event Emitter "Observer Pattern"
 
 @Injectable({providedIn:"root"})
 export class  PostsService
@@ -28,8 +29,12 @@ export class  PostsService
 
    addPosts(title:String, content: String){
      const post: PostModel = {id:null,title:title,content:content}
-      this.posts.push(post)
-      this.postUpdated.next([...this.posts])
+     this.http.post<{ message:string}>("http://localhost:3000/api/posts",post)
+       .subscribe((responseData)=> { // Called asynchronously only on success response and thus push the local post
+       console.log(responseData.message);
+       this.posts.push(post)
+       this.postUpdated.next([...this.posts])
+     });
    }
 }
 
